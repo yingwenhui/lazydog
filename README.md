@@ -1,0 +1,3 @@
+# lazydog
+懒狗的仓库
+哈喽啊大家，这里是我用ssm实现的学生信息管理系统，登录使用数据库里面的student表信息就可以了，记得在aplicationcontext。xml文件里面改成自己的数据库名字和密码哦
