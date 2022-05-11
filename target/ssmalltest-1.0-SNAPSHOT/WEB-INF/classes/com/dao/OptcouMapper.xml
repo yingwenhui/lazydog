@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.OptcouMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Optcou" >
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+  </resultMap>
+  <insert id="insertOptcouByCidAnd" >
+    insert into optcou(sid,cid,score) values(#{sid},#{cid},null)
+  </insert>
+  <select id="selectOptcouBySid" resultType="com.entity.Optcou">
+    select * from optcou where sid=#{sid}
+  </select>
+    <delete id="deleteoptcouBySidAndCid" >
+        delete from optcou where sid=#{sid} and cid=#{cid}
+    </delete>
+  <resultMap type="com.entity.Optcou" id="stuMap2">
+    <result column="sid" property="sid" />
+    <result column="cid" property="cid" />
+    <result column="score" property="score"/>
+
+    <association property="course" javaType="com.entity.Course">
+      <result column="cid" property="cid" />
+      <result column="cname" property="cname"/>
+      <result column="credit" property="credit"/>
+    </association>
+    <association property="student" javaType="com.entity.Student">
+      <result column="sid" property="sid" />
+        <result column="spwd" property="spwd"/>
+      <result column="sname" property="sname"/>
+
+
+    </association>
+  </resultMap>
+  <select id="selectAllBySid" resultMap="stuMap2">
+
+	SELECT a.sid sid,b.sname sname,a.cid cid,c.cname cname,c.credit credit,a.score score
+	from optcou a
+	join student b on a.sid=b.sid
+	join course c on c.cid=a.cid
+	where a.sid=#{sid}
+</select>
+  <select id="selectAll" resultMap="stuMap2">
+
+	SELECT a.sid sid,b.sname sname,a.cid cid,c.cname cname,c.credit credit,a.score score
+	from optcou a
+	join student b on a.sid=b.sid
+	join course c on c.cid=a.cid
+
+</select>
+    <update id="updateScore">
+        update optcou set score=#{score} where sid=#{sid} and cid=#{cid}
+    </update>
+<select id="selectByCid" resultMap="BaseResultMap">
+    select * from optcou where cid=#{cid}
+</select>
+    <delete id="deleteoptcouBySid">
+        delete from optcou where sid=#{sid}
+    </delete>
+</mapper>

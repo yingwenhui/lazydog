@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Student" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="spwd" property="spwd" jdbcType="VARCHAR" />
+    <result column="sname" property="sname" jdbcType="VARCHAR" />
+  </resultMap>
+<select id="selectBySid" resultMap="BaseResultMap">
+  select * from student where sid=#{sid}
+</select>
+  <select id="selectAllStudent" resultMap="BaseResultMap">
+    select * from student
+  </select>
+  <select id="selectByIdAndPAssword" resultMap="BaseResultMap">
+    select * from student where sid=#{sid} and spwd=#{spwd}
+  </select>
+  <delete id="deleteStudentBySid">
+    delete from student where sid=#{sid}
+  </delete>
+  <insert id="insertStudent">
+    insert into student values(#{sid},#{spwd},#{sname})
+  </insert>
+</mapper>

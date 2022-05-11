@@ -1,0 +1,64 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--MBG的配置文件-->
+    <!-- targetRuntime=“MyBatis3“  生成带条件的增删改查(动态sql)
+         targetRuntime=“MyBatis3Simple“  生成基本的增删改查
+    -->
+    <context id="DBTables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true:是;false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/studentsystem?useUnicode=true&amp;characterEncoding=UTF-8"
+                userId="root"
+                password="123456">
+        </jdbcConnection>
+
+        <!-- 默认 false，把 JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true 时把
+        JDBC DECIMAL和 NUMERIC 类型解析为 java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--javaBean的生成策略
+                targetProject:生成实体类的路径
+                targetPackage:生成的实体类的所在包名
+         -->
+        <javaModelGenerator targetProject=".\src\main\java"
+                            targetPackage="com.entity">
+            <!-- enableSubPackages:是否让 schema 作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--映射文件的生成策略
+                targetProject:XxxMapper.xml 映射文件生成的路径 -->
+        <sqlMapGenerator targetProject=".\src\main\java"
+                         targetPackage="com.dao">
+            <!-- enableSubPackages:是否让 schema 作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- dao接口(映射器)的生成策略
+                    targetPackage：Mapper 接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetProject=".\src\main\java"
+                             targetPackage="com.dao">
+            <!-- enableSubPackages:是否让 schema 作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 数据表与javaBean的映射
+                    数据库表名字和实体类对应的映射指定 -->
+        <table tableName="course" domainObjectName="Course" />
+        <table tableName="optcou" domainObjectName="Optcou" />
+        <table tableName="student" domainObjectName="Student" />
+    </context>
+</generatorConfiguration>
